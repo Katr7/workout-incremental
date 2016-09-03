@@ -32,7 +32,6 @@ video#bgvid {
     flex-flow: row;
 	padding: 0px;
 	margin: 0px;
-	margin-left: 10px;
 	font-family: 'Raleway', sans-serif;
 }
 
@@ -48,5 +47,5 @@ video#bgvid {
 }
 
 .btn {
-	margin-bottom: 10px;
+	margin-bottom: 5px;
 }
