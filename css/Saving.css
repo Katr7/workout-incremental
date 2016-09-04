@@ -67,3 +67,8 @@ a:hover {
 .btn {
 	background-color: #f4f4f4;
 }
+
+.money {
+	top: 50%;
+	left: 50%;
+}

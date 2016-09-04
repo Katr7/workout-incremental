@@ -8,10 +8,22 @@ function NewGame() {
 	this.middleBack = 0;
 	this.rt = 0;
 	this.rpd = 25;
+	this.money = 10;
+	this.gfuel = 0;
 }
 
 var Game = new NewGame();
 var g = Game;
+
+function buyGfuel(){
+	var gfuelCost = Math.floor(10 * Math.pow(1.1,g.gfuel));
+	if(g.money >= g.gfuelPrice){
+		g.rpd = g.rpd++;
+	}
+	var nextCost = Math.floor(10 * Math.pow(1.1,g.gfuel));
+    document.getElementById('gfuelCost').innerHTML = nextCost;
+	document.getElementById('rpd').innerHTML = "Reps Per Day: " + g.rpd;
+}
 
 
 function onPushUp(){
@@ -34,7 +46,7 @@ function onPullUp(){
 	if(g.rt < g.rpd){
 		g.pullups = g.pullups + 1;
 		g.lats = g.lats + 1;
-		g.middleBack = g.middleBack + 1;
+		g.middleBack = g.middleBack + 0.5;
 		g.rt = g.rt + 1;
 		document.getElementById("pullups").innerHTML = "Pull Ups: " + g.pullups;
 		document.getElementById("lats").innerHTML = g.lats;
@@ -61,6 +73,7 @@ window.onload = function(){
 	g.lats = gt.lats;
 	g.middleBack = gt.middleBack;
 	g.rt = gt.rt;
+	g.money = gt.money;
 	document.getElementById("pushups").innerHTML = "Push Ups: " + g.pushups;
 	document.getElementById("pullups").innerHTML = "Pull Ups: " + g.pullups;
 	document.getElementById("chest").innerHTML = g.chest;
@@ -70,6 +83,7 @@ window.onload = function(){
 	document.getElementById("middleBack").innerHTML = g.middleBack;
 	document.getElementById("rt").innerHTML = "Reps Today: " + g.rt;
 	document.getElementById("rpd").innerHTML = "Reps Per Day: " + g.rpd;
+	document.getElementById("money").innerHTML = "Money: $" + g.money;
 }
 
 function load(){
@@ -82,7 +96,8 @@ function load(){
 	g.triceps = gt.triceps;
 	g.lats = gt.lats;
 	g.middleBack = gt.middleBack;
-	g.rt = gt.rt
+	g.rt = gt.rt;
+	g.money = gt.money;
 	document.getElementById("pushups").innerHTML = "Push Ups: " + g.pushups;
 	document.getElementById("pullups").innerHTML = "Pull Ups: " + g.pullups;
 	document.getElementById("chest").innerHTML = g.chest;
@@ -92,6 +107,7 @@ function load(){
 	document.getElementById("middleBack").innerHTML = g.middleBack;
 	document.getElementById("rt").innerHTML = "Reps Today: " + g.rt;
 	document.getElementById("rpd").innerHTML = "Reps Per Day: " + g.rpd;
+	document.getElementById("money").innerHTML = "Money: $" + g.money;
 }
 
 function deleteSave(){

@@ -15,23 +15,29 @@
     	<br>
 
         <div class="flex-container">
-            <div class="panel panel-default" style="width:150px;">
+            <div class="panel panel-default" style="width:125px;">
               <div class="panel-heading pushup">
                 <h3 class="panel-title noselect">Your Job</h3>
               </div>
               <div class="panel-body pushup">
-                  <span class="noselect" id="job">Jobless</span>
+                  <span class="noselect" id="job">Jobless</span> <br>
+                Your Loan: <span class="noselect" id="loan">$0</span>
               </div>
             </div>
         </div>
 
         <div class="flex-container">
-            <div class="panel panel-default" style="width:150px;">
+            <div class="panel panel-default" style="width:250px;">
               <div class="panel-heading pushup">
-                <h3 class="panel-title noselect">Go To Work</h3>
+                <h3 class="panel-title noselect">Job Interview</h3>
               </div>
               <div class="panel-body pushup">
-                <a class="noselect btn" onclick="">Work</a>
+                Job: <span class="noselect" id="possibleJob">Merchandiser</span> <br>
+                <i>Lift some Grocery Store products.</i> <br>
+                Loan: <span class="noselect" id="possibleLoan">$10</span> <br>
+                Requirements: <br>
+                Total Strength: <span id="strengthRequirment">50</span> <br>
+                <a class="noselect btn" onclick="acceptJob()">Accept Job</a>
               </div>
             </div>
         </div>
