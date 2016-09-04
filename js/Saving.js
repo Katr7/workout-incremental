@@ -9,22 +9,30 @@ function NewGame() {
 	this.rt = 0;
 	this.rpd = 25;
 	this.money = 10;
-	this.gfuel = 0;
+	this.gfuel = 3;
 }
 
 var Game = new NewGame();
 var g = Game;
 
-function buyGfuel(){
-	var gfuelCost = Math.floor(10 * Math.pow(1.1,g.gfuel));
-	if(g.money >= g.gfuelPrice){
-		g.rpd = g.rpd++;
-	}
-	var nextCost = Math.floor(10 * Math.pow(1.1,g.gfuel));
-    document.getElementById('gfuelCost').innerHTML = nextCost;
-	document.getElementById('rpd').innerHTML = "Reps Per Day: " + g.rpd;
+function updateHTML(elmId, value) {
+  document.getElementById(elmId).innerHTML = value;
 }
 
+
+function buyGfuel(){
+	g.gfuel = g.gfuel + 1;
+	updateHTML("gfuel", g.gfuel);
+}
+
+function drinkGfuel(){
+	if(g.gfuel >= 1){
+		g.gfuel = g.gfuel - 1;
+		g.rpd = g.rpd + 1;
+		updateHTML("gfuel", g.gfuel + " ");
+		updateHTML("rpd", "Reps Per Day: " + g.rpd);
+	}
+}
 
 function onPushUp(){
 	if(g.rt < g.rpd){
@@ -73,17 +81,20 @@ window.onload = function(){
 	g.lats = gt.lats;
 	g.middleBack = gt.middleBack;
 	g.rt = gt.rt;
+	g.rpd = gt.rpd;
 	g.money = gt.money;
-	document.getElementById("pushups").innerHTML = "Push Ups: " + g.pushups;
-	document.getElementById("pullups").innerHTML = "Pull Ups: " + g.pullups;
-	document.getElementById("chest").innerHTML = g.chest;
-	document.getElementById("shoulders").innerHTML = g.shoulders;
-	document.getElementById("triceps").innerHTML = g.triceps;
-	document.getElementById("lats").innerHTML = g.lats;
-	document.getElementById("middleBack").innerHTML = g.middleBack;
-	document.getElementById("rt").innerHTML = "Reps Today: " + g.rt;
-	document.getElementById("rpd").innerHTML = "Reps Per Day: " + g.rpd;
-	document.getElementById("money").innerHTML = "Money: $" + g.money;
+	g.gfuel = gt.gfuel;
+	updateHTML("pushups", "Push Ups: " + g.pushups);
+	updateHTML("pullups", "Pull Ups: " + g.pullups);
+	updateHTML("chest", g.chest);
+	updateHTML("shoulders", g.shoulders);
+	updateHTML("triceps", g.triceps);
+	updateHTML("lats", g.lats);
+	updateHTML("middleBack", g.middleBack);
+	updateHTML("rt", "Reps Today: " + g.rt);
+	updateHTML("rpd", "Reps Per Day: " + g.rpd);
+	updateHTML("money", "Money: $" + g.money);
+	updateHTML("gfuel", g.gfuel + " ");
 }
 
 function load(){
@@ -97,17 +108,20 @@ function load(){
 	g.lats = gt.lats;
 	g.middleBack = gt.middleBack;
 	g.rt = gt.rt;
+	g.rpd = gt.rpd;
 	g.money = gt.money;
-	document.getElementById("pushups").innerHTML = "Push Ups: " + g.pushups;
-	document.getElementById("pullups").innerHTML = "Pull Ups: " + g.pullups;
-	document.getElementById("chest").innerHTML = g.chest;
-	document.getElementById("shoulders").innerHTML = g.shoulders;
-	document.getElementById("triceps").innerHTML = g.triceps;
-	document.getElementById("lats").innerHTML = g.lats;
-	document.getElementById("middleBack").innerHTML = g.middleBack;
-	document.getElementById("rt").innerHTML = "Reps Today: " + g.rt;
-	document.getElementById("rpd").innerHTML = "Reps Per Day: " + g.rpd;
-	document.getElementById("money").innerHTML = "Money: $" + g.money;
+	g.gfuel = gt.gfuel;
+	updateHTML("pushups", "Push Ups: " + g.pushups);
+	updateHTML("pullups", "Pull Ups: " + g.pullups);
+	updateHTML("chest", g.chest);
+	updateHTML("shoulders", g.shoulders);
+	updateHTML("triceps", g.triceps);
+	updateHTML("lats", g.lats);
+	updateHTML("middleBack", g.middleBack);
+	updateHTML("rt", "Reps Today: " + g.rt);
+	updateHTML("rpd", "Reps Per Day: " + g.rpd);
+	updateHTML("money", "Money: $" + g.money);
+	updateHTML("gfuel", g.gfuel + " ");
 }
 
 function deleteSave(){
@@ -121,6 +135,8 @@ function deleteSave(){
 	g.lats = 0;
 	g.middleBack = 0;
 	g.rt = 0;
+	g.rpd = 25;
+	g.gfuel = 0;
 	gt.pushups = g.pushups;
 	gt.pullups = g.pullups;
 	gt.chest = g.chest;
@@ -128,7 +144,9 @@ function deleteSave(){
 	gt.triceps = g.triceps;
 	gt.lats = g.lats;
 	gt.middleBack = g.middleBack;
-	gt.rt = g.rt
+	gt.rt = g.rt;
+	gt.rpd = g.rpd;
+	gt.gfuel = g.gfuel;
 	document.getElementById("pushups").innerHTML = "Push Ups: " + g.pushups;
 	document.getElementById("pullups").innerHTML = "Pull Ups: " + g.pullups;
 	document.getElementById("chest").innerHTML = g.chest;
@@ -137,6 +155,8 @@ function deleteSave(){
 	document.getElementById("lats").innerHTML = g.lats;
 	document.getElementById("middleBack").innerHTML = g.middleBack;
 	document.getElementById("rt").innerHTML = "Reps Today: " + g.rt;
+	updateHTML("rpd", "Reps Per Day: " + g.rpd);
+	updateHTML("gfuel", g.gfuel + " ")
 	window.GameTwo = JSON.parse(window.localStorage['SaveName']);
 }
 
@@ -159,3 +179,7 @@ function onSleep(){
 window.setInterval(function(){
 	save()
 }, 1000);
+
+window.setInterval(function(){
+	updateHTML("gfuel", g.gfuel);
+}, 100);
