@@ -199,5 +199,9 @@ function onSleep(){
 }
 
 window.setInterval(function(){
+	save();
+}, 100);
+
+window.setInterval(function(){
 	updateHTML("gfuel", g.gfuel);
 }, 100);
