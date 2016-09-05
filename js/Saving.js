@@ -9,7 +9,10 @@ function NewGame() {
 	this.rt = 0;
 	this.rpd = 25;
 	this.money = 10;
-	this.gfuel = 3;
+	this.gfuel = 0;
+	this.hasWorked = false;
+	this.loan = 5;
+	this.totalGfuel = 0;
 }
 
 var Game = new NewGame();
@@ -19,10 +22,25 @@ function updateHTML(elmId, value) {
   document.getElementById(elmId).innerHTML = value;
 }
 
+function work(){
+	if(g.hasWorked === false){
+		g.money = g.money + 5;
+		g.hasWorked = true;
+		updateHTML("money", "$" + g.money);
+	}
+}
 
 function buyGfuel(){
-	g.gfuel = g.gfuel + 1;
-	updateHTML("gfuel", g.gfuel);
+	var gfuelCost = Math.floor(10 * Math.pow(1.2, g.totalGfuel));
+	if(g.money >= gfuelCost){
+		g.gfuel = g.gfuel + 1;
+		g.totalGfuel = g.totalGfuel + 1;
+		g.money = g.money - gfuelCost;
+		updateHTML("gfuel", g.gfuel + " ");
+		updateHTML("money", "$" + g.money);
+	}
+	var nextCost = Math.floor(10 * Math.pow(1.2, g.totalGfuel));
+	updateHTML("gfuelCost", nextCost);
 }
 
 function drinkGfuel(){
@@ -93,7 +111,7 @@ window.onload = function(){
 	updateHTML("middleBack", g.middleBack);
 	updateHTML("rt", "Reps Today: " + g.rt);
 	updateHTML("rpd", "Reps Per Day: " + g.rpd);
-	updateHTML("money", "Money: $" + g.money);
+	updateHTML("money", "$" + g.money);
 	updateHTML("gfuel", g.gfuel + " ");
 }
 
@@ -120,7 +138,7 @@ function load(){
 	updateHTML("middleBack", g.middleBack);
 	updateHTML("rt", "Reps Today: " + g.rt);
 	updateHTML("rpd", "Reps Per Day: " + g.rpd);
-	updateHTML("money", "Money: $" + g.money);
+	updateHTML("money", "$" + g.money);
 	updateHTML("gfuel", g.gfuel + " ");
 }
 
@@ -137,6 +155,7 @@ function deleteSave(){
 	g.rt = 0;
 	g.rpd = 25;
 	g.gfuel = 0;
+	g.money = 0;
 	gt.pushups = g.pushups;
 	gt.pullups = g.pullups;
 	gt.chest = g.chest;
@@ -147,6 +166,7 @@ function deleteSave(){
 	gt.rt = g.rt;
 	gt.rpd = g.rpd;
 	gt.gfuel = g.gfuel;
+	gt.money = g.money;
 	document.getElementById("pushups").innerHTML = "Push Ups: " + g.pushups;
 	document.getElementById("pullups").innerHTML = "Pull Ups: " + g.pullups;
 	document.getElementById("chest").innerHTML = g.chest;
@@ -156,29 +176,27 @@ function deleteSave(){
 	document.getElementById("middleBack").innerHTML = g.middleBack;
 	document.getElementById("rt").innerHTML = "Reps Today: " + g.rt;
 	updateHTML("rpd", "Reps Per Day: " + g.rpd);
-	updateHTML("gfuel", g.gfuel + " ")
+	updateHTML("gfuel", g.gfuel + " ");
+	updateHTML("money", "$" + g.money);
 	window.GameTwo = JSON.parse(window.localStorage['SaveName']);
 }
 
 function onSleep(){
-	g.chest = Math.floor(g.chest * 0.8);
-	g.shoulders = Math.floor(g.shoulders * 0.8);
-	g.triceps = Math.floor(g.triceps * 0.8);
-	g.lats = Math.floor(g.lats * 0.8);
-	g.middleBack = Math.floor(g.middleBack * 0.8);
+	g.chest = Math.round(g.chest * 0.8);
+	g.shoulders = Math.round(g.shoulders * 0.8);
+	g.triceps = Math.round(g.triceps * 0.8);
+	g.lats = Math.round(g.lats * 0.8);
+	g.middleBack = Math.round(g.middleBack * 0.8);
 	g.rt = 0;
+	g.hasWorked = false;
 	document.getElementById("lats").innerHTML = g.lats;
 	document.getElementById("middleBack").innerHTML = g.middleBack;
 	document.getElementById("chest").innerHTML = g.chest;
 	document.getElementById("shoulders").innerHTML = g.shoulders;
 	document.getElementById("triceps").innerHTML = g.triceps;
 	document.getElementById("rt").innerHTML = "Reps Today: " + g.rt;
-}
-
-
-window.setInterval(function(){
 	save()
-}, 1000);
+}
 
 window.setInterval(function(){
 	updateHTML("gfuel", g.gfuel);
